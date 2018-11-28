@@ -1,0 +1,41 @@
+{
+  "name": "rest-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "1.18.3",
+    "config": "3.0.0",
+    "express": "4.16.4",
+    "express-validator": "5.3.0",
+    "http-errors": "1.7.1",
+    "jsonwebtoken": "8.4.0",
+    "oauth": "0.9.15"
+  },
+  "devDependencies": {
+    "chai": "4.2.0",
+    "eslint": "5.9.0",
+    "eslint-config-google": "0.11.0",
+    "mocha": "5.2.0",
+    "nyc": "13.1.0",
+    "sinon": "7.1.1",
+    "supertest": "3.3.0"
+  },
+  "engines": {
+    "node": "8.9.0"
+  },
+  "config": {
+    "test_timeout": 10000,
+    "test_path": "src",
+    "test_ext": "spec.js"
+  },
+  "scripts": {
+    "start": "node ./src",
+    "lint": "eslint $npm_package_config_test_path && eslint src && echo '\\033[0;32mSuccess!\\033[0m\\n'",
+    "lint-n-fix": "eslint --fix $npm_package_config_test_path && eslint --fix src",
+    "test": "run() { if [ -z $1 ]; then npm run test-path \"$npm_package_config_test_path/**/*.$npm_package_config_test_ext\"; else for i; do npm run test-path \"$npm_package_config_test_path/$i/**/*.$npm_package_config_test_ext\"; done; fi;}; run",
+    "test-path": "NODE_ENV=test mocha --recursive --timeout=$npm_package_config_test_timeout --exit --reporter=spec",
+    "coverage": "nyc npm test && nyc report --reporter=text-summary",
+    "report": "nyc report && nyc report --reporter=text-summary && nyc report --reporter=lcov && python -mwebbrowser coverage/lcov-report/index.html"
+  }
+}
