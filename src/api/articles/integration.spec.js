@@ -69,19 +69,6 @@ describe('Articles', () => {
           .expect(200);
     });
 
-    it('should return article', async () => {
-      const testArticle = testArticles[1];
-      await request.get(`/api/articles/${testArticle.id}`)
-          .set('Authorization', `Bearer ${token}`)
-          .expect('Content-Type', /json/)
-          .expect({
-            id: testArticle.id,
-            name: testArticle.name,
-            owner: testUser.id
-          })
-          .expect(200);
-    });
-
     it('should return 404', async () => {
       const testArticle = testArticles[2];
       await request.get(`/api/articles/${testArticle.id}`)
